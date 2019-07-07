@@ -11,7 +11,6 @@
 (defn cutify [v]
   (conj v "v3"))
 
-
 (defn spiff-destructuring [v]
    (let [[first second third] v]
      (+ first third)))
@@ -46,7 +45,9 @@
 (defn contains-point? [rectangle point]
   (let [[x y] point]
     (let [[[x1 y1] [x2 y2]] rectangle]
-      (or (= x1 y1 x2 y2 x y) (and (and (pos? x) (<= x (width rectangle)) (and (pos? y) (<= y (height rectangle)))))))))
+      (or (= x1 y1 x2 y2 x y) 
+          (and (and (pos? x) (<= x (width rectangle)) 
+                    (and (pos? y) (<= y (height rectangle)))))))))
        
 
 (defn contains-rectangle? [outer inner]
@@ -55,27 +56,6 @@
 
 (defn title-length [book]
   (count (:title book)))
-
-(def china {:name "China Miéville", :birth-year 1972})
-(def octavia {:name "Octavia E. Butler"
-              :birth-year 1947
-              :death-year 2006})
-(def friedman {:name "Daniel Friedman" :birth-year 1944})
-(def felleisen {:name "Matthias Felleisen"})
-
-(def cities {:title "The City and the City" :authors [china]})
-(def wild-seed {:title "Wild Seed", :authors [octavia]})
-(def embassytown {:title "Embassytown", :authors [china]})
-(def little-schemer {:title "The Little Schemer"
-                     :authors [friedman, felleisen]})
-
-(assoc cities :awards ["Hugo", "World Fantasy Award",
-                       "Arthur C. Clarke Award",
-                       "British Science Fiction Award"])
-;=> {:awards ["Hugo" "World Fantasy Award" "Arthur C. Clarke Award"
-;             "British Science Fiction Award"]
-;    :title "The City and the City"
-;    :authors [{:birth-year 1972, :name "China Miéville"}]}
 
 
 (defn author-count [book]
@@ -100,22 +80,31 @@
 
 
 (defn second-elements [collection]
-  :-)
+  (let [take-second (fn [x] (get x 1))]
+    (map take-second collection)))
+
 
 (defn titles [books]
-  :-)
+  (map :title books))
+
 
 (defn monotonic? [a-seq]
-  :-)
+  (or (apply >= a-seq) (apply <= a-seq)))
+
 
 (defn stars [n]
-  :-)
+  (apply str (repeat n "*")))
+    
 
 (defn toggle [a-set elem]
-  :-)
+  (if (contains? a-set elem)
+    (disj a-set elem)
+    (conj a-set elem)))
+
 
 (defn contains-duplicates? [a-seq]
-  :-)
+  (not (= (count (set a-seq)) (count a-seq))))
+
 
 (defn old-book->new-book [book]
   :-)
